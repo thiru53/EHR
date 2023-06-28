@@ -1,13 +1,17 @@
 package com.webApp.controller;
 
+import com.webApp.entity.Patient;
 import com.webApp.service.AppointmentService;
 import com.webApp.service.NotesService;
 import com.webApp.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/patients")
@@ -22,7 +26,9 @@ public class PatientController {
     private AppointmentService appointmentService;
 
     @GetMapping
-    public String searchPatients() {
+    public String searchPatients(Model model) {
+        List<Patient> patients =  patientService.searchPatients();
+        model.addAttribute("patients", patients);
         return "patient-search";
     }
 
