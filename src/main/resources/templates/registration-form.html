@@ -41,7 +41,9 @@
     <div>
         <button type="submit">Register</button>
     </div>
-    <div class="error-message"></div>
+    <div class="error-message">
+        <strong th:text="${errMsg}"></strong>
+    </div>
 </form>
 </body>
 </html>
