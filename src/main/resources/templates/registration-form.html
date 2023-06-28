@@ -41,9 +41,10 @@
     <div>
         <button type="submit">Register</button>
     </div>
-    <div class="error-message">
-        <strong th:text="${errMsg}"></strong>
-    </div>
+
+    <div class="error-message" th:text="${error}" th:if="${error}"></div>
+    <div class="success-message" th:text="${success}" th:if="${success}"></div>
+
 </form>
 </body>
 </html>
