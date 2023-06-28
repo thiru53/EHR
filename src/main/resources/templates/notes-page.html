@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>View Notes</title>
+    <style>
+        .container {
+            margin: 0 auto;
+            width: 50%;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            color: #ff0000;
+        }
+
+        .notes-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .notes-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Notes</h1>
+    <ul th:if="${notes}">
+        <li th:each="note : ${notes}" th:text="${note.content}"></li>
+    </ul>
+    <p th:unless="${notes}">No notes available for this patient.</p>
+    <a th:href="@{/patients/notes/add/{id}(id=${patientId})}">Add Note</a>
+</div>
+</body>
+</html>
