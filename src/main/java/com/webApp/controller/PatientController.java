@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/patients")
@@ -26,8 +29,18 @@ public class PatientController {
     private AppointmentService appointmentService;
 
     @GetMapping
-    public String searchPatients(Model model) {
-        List<Patient> patients =  patientService.searchPatients();
+    public String searchPatients(Model model, String name) {
+        List<Patient> patients = new ArrayList<>();
+        Optional<Patient> patient = Optional.empty();
+        if(Objects.nonNull(name) && !name.isEmpty()){
+            patient = patientService.getPatientByName(name);
+            if(patient.isPresent()) {
+                patients.add(patient.get());
+            }
+        } else {
+            patients =  patientService.searchPatients();
+        }
+        model.addAttribute("name", name);
         model.addAttribute("patients", patients);
         return "patient-search";
     }
