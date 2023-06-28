@@ -7,9 +7,7 @@ import com.webApp.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +35,9 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public String getPatientDetails() {
+    public String getPatientDetails(Model model, @PathVariable("id") long patientId) {
+        Patient patient = patient = patientService.getPatientById(patientId);
+        model.addAttribute("patient", patient);
         return "patient-details";
     }
 

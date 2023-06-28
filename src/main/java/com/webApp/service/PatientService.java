@@ -21,7 +21,7 @@ public class PatientService {
     }
 
     public Patient getPatientById(long patientId) {
-        return patientRepository.findById(patientId).orElseThrow(() -> new EntityNotFoundException("Patient doesn't exists for id :"+patientId));
+        return patientRepository.findById(patientId).orElse(new Patient());
     }
 
     public void getMedicalHistoryForPatient() {
