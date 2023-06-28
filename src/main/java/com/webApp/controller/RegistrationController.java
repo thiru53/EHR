@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/registration")
@@ -24,12 +25,13 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registerPatient(Model model, Patient patient, BindingResult bindingResult) {
+    public String registerPatient(Model model, RedirectAttributes redirAttrs, Patient patient, BindingResult bindingResult) {
 
-        if(patientRepository.existsByContactDetails(patient.getContactDetails())){
-            model.addAttribute("errMsg", "Contact details already registered");
-            return "registration-form";
+        if(patientRepository.existsByContactDetails(patient.getContactDetails())) {
+            redirAttrs.addFlashAttribute("error", "Contact details ("+patient.getContactDetails()+") already registered");
+            return "redirect:/registration";
         }
+        redirAttrs.addFlashAttribute("success", "Registered Successfully");
         patientRepository.save(patient);
         return "redirect:/patients";
     }
