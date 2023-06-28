@@ -30,16 +30,7 @@ public class PatientController {
 
     @GetMapping
     public String searchPatients(Model model, String name) {
-        List<Patient> patients = new ArrayList<>();
-        Optional<Patient> patient = Optional.empty();
-        if(Objects.nonNull(name) && !name.isEmpty()){
-            patient = patientService.getPatientByName(name);
-            if(patient.isPresent()) {
-                patients.add(patient.get());
-            }
-        } else {
-            patients =  patientService.searchPatients();
-        }
+        List<Patient> patients = patients =  patientService.searchPatients(name);
         model.addAttribute("name", name);
         model.addAttribute("patients", patients);
         return "patient-search";
