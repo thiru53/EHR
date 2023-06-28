@@ -60,7 +60,9 @@
     </thead>
     <tbody>
         <tr th:each="patient : ${patients}">
-            <th th:text="${patient.id}">ID</th>
+            <th>
+                <a th:href="@{'/patients/'+${patient.id}}" th:text="${patient.id}"></a>
+            </th>
             <th th:text="${patient.name}">Name</th>
             <th th:text="${patient.contactDetails}">Contact</th>
             <th th:text="${patient.dob}">Date of Birth</th>
