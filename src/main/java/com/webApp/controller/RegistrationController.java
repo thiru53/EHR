@@ -28,7 +28,7 @@ public class RegistrationController {
     public String registerPatient(Model model, RedirectAttributes redirAttrs, Patient patient, BindingResult bindingResult) {
 
         if(patientRepository.existsByContactDetails(patient.getContactDetails())) {
-            redirAttrs.addFlashAttribute("error", "Contact details ("+patient.getContactDetails()+") already registered");
+            redirAttrs.addFlashAttribute("error", "Contact details already registered");
             return "redirect:/registration";
         }
         redirAttrs.addFlashAttribute("success", "Registered Successfully");
