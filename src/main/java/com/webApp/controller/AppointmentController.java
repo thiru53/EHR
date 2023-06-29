@@ -61,7 +61,7 @@ public class AppointmentController {
         calendar.set(Calendar.SECOND, 0);
         for (int i = 0; i < 9; i++) {
             String  day1 = sdf.format(calendar.getTime());
-            results.add(i, day1);
+            results.add(i, day1.toUpperCase());
             // add 15 minutes to the current time; the hour adjusts automatically!
             calendar.add(Calendar.MINUTE, 15);
         }
