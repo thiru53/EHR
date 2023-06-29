@@ -52,10 +52,10 @@
     </style>
 </head>
 <body>
-<form method="post" th:action="@{/patients/notes/add/{id}(id=${patient.id})}" th:object="${note}">
+<form method="post" th:action="@{/patients/notes/add/{id}(id=${patient.id})}">
     <h1>Add Note</h1>
     <label for="content">Note Content:</label>
-    <textarea id="content" th:field="*{content}" name="content" required></textarea>
+    <textarea id="content" th:value="${content}" name="content" required></textarea>
     <br />
     <button type="submit">Save</button>
 </form>
