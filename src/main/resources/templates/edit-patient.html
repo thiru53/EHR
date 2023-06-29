@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Edit Patient</title>
     <style>
@@ -43,24 +43,24 @@
 <body>
 <div class="container">
     <h1>Edit Patient</h1>
-    <form method="post">
+    <form method="post" th:action="@{/patients/update/{id}(id=${patient.id})}" th:object="${patient}">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" required />
+        <input type="text" th:field="*{name}" id="name" name="name" required />
         <label for="contactDetails">Contact Details</label>
-        <input type="text" id="contactDetails" name="contactDetails" required />
+        <input type="text" th:field="*{contactDetails}" id="contactDetails" name="contactDetails" required />
         <label for="address">Address</label>
-        <input type="text" id="address" name="address" required />
+        <input type="text" th:field="*{address}" id="address" name="address" required />
         <label for="email">Email</label>
-        <input type="text" id="email" name="email" required />
+        <input type="text" th:field="*{email}" id="email" name="email" required />
         <label for="gender">Gender</label>
         <select id="gender" name="gender" required>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
         </select>
         <label for="dob">Date of Birth</label>
-        <input type="text" id="dob" name="dob" required />
+        <input type="text" th:field="*{dob}" id="dob" name="dob" required />
         <label for="medicalHistory">Medical History</label>
-        <textarea id="medicalHistory" name="medicalHistory" required></textarea>
+        <textarea th:field="*{medicalHistory}" id="medicalHistory" name="medicalHistory" required></textarea>
         <div class="button-container">
             <button type="submit">Update</button>
         </div>
