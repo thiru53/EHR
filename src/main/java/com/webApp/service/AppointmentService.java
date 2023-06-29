@@ -1,5 +1,6 @@
 package com.webApp.service;
 
+import com.webApp.entity.Appointment;
 import com.webApp.repo.AppointmentRepository;
 import com.webApp.repo.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,8 @@ public class AppointmentService {
         this.patientRepository = patientRepository;
     }
 
-    public void scheduleAppointment() {
+    public void scheduleAppointment(Appointment appointmentDetails) {
+        appointmentRepository.save(appointmentDetails);
     }
 
     private void getTotalTimeSlots() {
