@@ -1,5 +1,6 @@
 package com.webApp.controller;
 
+import com.webApp.entity.Appointment;
 import com.webApp.entity.Note;
 import com.webApp.entity.Patient;
 import com.webApp.service.AppointmentService;
@@ -86,7 +87,9 @@ public class PatientController {
     }
 
     @GetMapping("/appointments/{patientId}")
-    public String viewAppointments() {
+    public String viewAppointments(@PathVariable("patientId") long patientId, Model model) {
+        List<Appointment> appointments = appointmentService.getAppointmentsByPatientId(patientId);
+        model.addAttribute("appointments", appointments);
         return "appointmentList";
     }
 
