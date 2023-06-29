@@ -26,6 +26,7 @@ public class AppointmentController {
 
     @PostMapping("/schedule")
     public String processAppointmentForm(Appointment appointmentDetails, BindingResult bindingResult) {
+        appointmentService.scheduleAppointment(appointmentDetails);
         return "redirect:/patients";
     }
 

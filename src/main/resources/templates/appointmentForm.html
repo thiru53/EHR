@@ -5,7 +5,7 @@
     <title>Appointment details</title></head>
 <body>
 <h1>Appointment Form</h1>
-<form method="post" >
+<form method="post" th:object="${appointmentForm}">
     <div>
         <label for="appointmentDate">Appointment Date:</label>
         <input type="date" id="appointmentDate" name="appointmentDate" required/>
