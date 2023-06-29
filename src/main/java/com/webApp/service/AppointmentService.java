@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class AppointmentService {
@@ -21,6 +22,10 @@ public class AppointmentService {
     }
 
     public void scheduleAppointment(Appointment appointmentDetails) {
+        Appointment appointment = appointmentRepository.findByAppointmentDateAndTimeSlot(appointmentDetails.getAppointmentDate(), appointmentDetails.getTimeSlot());
+        if(Objects.nonNull(appointment)) {
+            throw new RuntimeException("Please select a proper date and time");
+        }
         appointmentRepository.save(appointmentDetails);
     }
 

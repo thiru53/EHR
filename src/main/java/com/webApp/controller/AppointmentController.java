@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/appointments")
@@ -25,8 +26,13 @@ public class AppointmentController {
     }
 
     @PostMapping("/schedule")
-    public String processAppointmentForm(Appointment appointmentDetails, BindingResult bindingResult) {
-        appointmentService.scheduleAppointment(appointmentDetails);
+    public String processAppointmentForm(Appointment appointmentDetails, BindingResult bindingResult, RedirectAttributes redirAttrs) {
+        try {
+            appointmentService.scheduleAppointment(appointmentDetails);
+        } catch (Exception ex){
+            redirAttrs.addFlashAttribute("error",ex.getMessage());
+            return "redirect:/appointments/schedule";
+        }
         return "redirect:/patients";
     }
 
