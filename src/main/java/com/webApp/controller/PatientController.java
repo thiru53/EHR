@@ -29,9 +29,9 @@ public class PatientController {
     @Autowired
     private AppointmentService appointmentService;
 
-    @GetMapping
+    @GetMapping(value = {"", "/"})
     public String searchPatients(Model model, String name) {
-        List<Patient> patients = patients =  patientService.searchPatients(name);
+        List<Patient> patients =  patientService.searchPatients(name);
         model.addAttribute("name", name);
         model.addAttribute("patients", patients);
         return "patient-search";
