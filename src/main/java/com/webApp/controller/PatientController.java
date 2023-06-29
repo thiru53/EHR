@@ -50,7 +50,11 @@ public class PatientController {
     }
 
     @PostMapping("/update/{id}")
-    public String updatePatient(Patient patient, BindingResult bindingResult) {
+    public String updatePatient(@PathVariable("id") long patientId, Patient patient, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            patient.setId(patientId);
+            return "edit-patient";
+        }
         patientService.updatePatient(patient);
         return "redirect:/patients/"+patient.getId();
     }
