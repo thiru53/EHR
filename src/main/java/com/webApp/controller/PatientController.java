@@ -1,5 +1,6 @@
 package com.webApp.controller;
 
+import com.webApp.entity.Note;
 import com.webApp.entity.Patient;
 import com.webApp.service.AppointmentService;
 import com.webApp.service.NotesService;
@@ -37,7 +38,7 @@ public class PatientController {
 
     @GetMapping("/{id}")
     public String getPatientDetails(Model model, @PathVariable("id") long patientId) {
-        Patient patient = patient = patientService.getPatientById(patientId);
+        Patient patient = patientService.getPatientById(patientId);
         model.addAttribute("patient", patient);
         return "patient-details";
     }
@@ -60,18 +61,27 @@ public class PatientController {
     }
 
     @GetMapping("notes/view/{id}")
-    public String viewNotes() {
+    public String viewNotes(@PathVariable("id") long patientId, Model model) {
+        List<Note> notes = notesService.getNotesByPatientId(patientId);
+        model.addAttribute("notes", notes);
+        model.addAttribute("patientId",patientId);
         return "notes-page";
     }
 
     @GetMapping("notes/add/{id}")
-    public String showAddNoteForm() {
+    public String showAddNoteForm(@PathVariable("id") long patientId, Model model) {
+        Patient patient = patientService.getPatientById(patientId);
+        model.addAttribute("patient", patient);
+        model.addAttribute("note", new Note());
         return "add-note";
     }
 
     @PostMapping("notes/add/{id}")
-    public String addNote() {
-        return "redirect:/patients/notes/view/<patientId>";
+    public String addNote(@PathVariable("id") long patientId, Note note, BindingResult bindingResult) {
+        Patient patient = patientService.getPatientById(patientId);
+        note.setPatient(patient);
+        notesService.addNoteToPatient(note);
+        return "redirect:/patients/notes/view/"+patientId;
     }
 
     @GetMapping("/appointments/{patientId}")
