@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Appointment List</title>
     <style>
@@ -22,6 +22,15 @@
             <th>Doctor</th>
         </tr>
         </thead>
+        <tbody>
+        <tr th:each="appointment : ${appointments}">
+            <th th:text="${appointment.id}">Appointment ID</th>
+            <th th:text="${appointment.appointmentDate}">Appointment Date</th>
+            <th th:text="${appointment.timeSlot}">Appointment Time</th>
+            <th th:text="${appointment.purpose}">Purpose</th>
+            <th th:text="${appointment.doctorName}">Doctor</th>
+        </tr>
+        </tbody>
     </table>
 </div>
 </body>

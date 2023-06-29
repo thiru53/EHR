@@ -6,6 +6,8 @@ import com.webApp.repo.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AppointmentService {
 
@@ -30,8 +32,8 @@ public class AppointmentService {
 
     }
 
-    public void getAppointmentsByPatientId() {
-
+    public List<Appointment> getAppointmentsByPatientId(long patientId) {
+        return appointmentRepository.findByPatientId(patientId);
     }
 
     public void getAppointmentById() {
