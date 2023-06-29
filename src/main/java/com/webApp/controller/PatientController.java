@@ -72,13 +72,14 @@ public class PatientController {
     public String showAddNoteForm(@PathVariable("id") long patientId, Model model) {
         Patient patient = patientService.getPatientById(patientId);
         model.addAttribute("patient", patient);
-        model.addAttribute("note", new Note());
         return "add-note";
     }
 
     @PostMapping("notes/add/{id}")
-    public String addNote(@PathVariable("id") long patientId, Note note, BindingResult bindingResult) {
+    public String addNote(@PathVariable("id") long patientId, String content) {
         Patient patient = patientService.getPatientById(patientId);
+        Note note = new Note();
+        note.setContent(content);
         note.setPatient(patient);
         notesService.addNoteToPatient(note);
         return "redirect:/patients/notes/view/"+patientId;
