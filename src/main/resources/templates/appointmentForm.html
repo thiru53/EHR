@@ -13,7 +13,7 @@
     <div>
         <label for="timeSlot">Time Slot:</label>
         <select id="timeSlot" name="timeSlot" required>
-            <option></option>
+            <option th:each="i : ${#numbers.sequence(1, 24)}" th:value="${i}" th:text="${i}"></option>
         </select>
     </div>
     <div>
