@@ -7,6 +7,7 @@ import com.webApp.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,13 +43,16 @@ public class PatientController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editPatient() {
+    public String editPatient(Model model, @PathVariable("id") long patientId) {
+        Patient patient = patientService.getPatientById(patientId);
+        model.addAttribute("patient", patient);
         return "edit-patient";
     }
 
     @PostMapping("/update/{id}")
-    public String updatePatient() {
-        return "redirect:/patients/<id>";
+    public String updatePatient(Patient patient, BindingResult bindingResult) {
+        patientService.updatePatient(patient);
+        return "redirect:/patients/"+patient.getId();
     }
 
     @GetMapping("notes/view/{id}")

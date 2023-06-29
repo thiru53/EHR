@@ -94,9 +94,9 @@
     </table>
 </div>
 <div class="button-container">
-    <button>Edit</button>
-    <button >View Notes</button>
-    <button>Display Appointments</button>
+    <button><a th:href="@{/patients/edit/{id}(id=${patient.id})}">Edit</a></button>
+    <button><a th:href="@{/patients/edit/{id}(id=${patient.id})}">View Notes</a></button>
+    <button><a th:href="@{/patients/edit/{id}(id=${patient.id})}">Display Appointments</a></button>
 </div>
 <script>
 </script>

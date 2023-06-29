@@ -26,7 +26,7 @@ public class PatientService {
 
     }
 
-    public void updatePatient() {
-
+    public void updatePatient(Patient patient) {
+        patientRepository.save(patient);
     }
 }
