@@ -27,6 +27,11 @@ public class PatientService {
     }
 
     public void updatePatient(Patient patient) {
+
+        Patient patientFromDb = patientRepository.findByIdNotAndContactDetails(patient.getId(), patient.getContactDetails());
+        if(Objects.nonNull(patientFromDb)) {
+            throw new RuntimeException("Contact details already registered");
+        }
         patientRepository.save(patient);
     }
 }

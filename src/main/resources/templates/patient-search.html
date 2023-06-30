@@ -35,8 +35,17 @@
         cursor: pointer;
       }
     </style>
+    <script>
+        function loaded(){
+            debugger
+            var successMsg = "[[${successMsg}]]";
+            if(successMsg) {
+                alert(successMsg);
+            }
+        }
+    </script>
 </head>
-<body>
+<body onload="loaded()">
 <h1>Patient Search</h1>
 <form action="/patients" method="get">
     <label>
@@ -60,19 +69,22 @@
     </thead>
     <tbody>
         <tr th:each="patient : ${patients}">
-            <th>
+            <td>
                 <a th:href="@{'/patients/'+${patient.id}}" th:text="${patient.id}"></a>
-            </th>
-            <th th:text="${patient.name}">Name</th>
-            <th th:text="${patient.contactDetails}">Contact</th>
-            <th th:text="${patient.dob}">Date of Birth</th>
-            <th th:text="${patient.address}">Address</th>
-            <th th:text="${patient.email}">Email</th>
-            <th th:text="${patient.medicalHistory}">Medical History</th>
+            </td>
+            <td th:text="${patient.name}">Name</td>
+            <td th:text="${patient.contactDetails}">Contact</td>
+            <td th:text="${patient.dob}">Date of Birth</td>
+            <td th:text="${patient.address}">Address</td>
+            <td th:text="${patient.email}">Email</td>
+            <td th:text="${patient.medicalHistory}">Medical History</td>
         </tr>
     </tbody>
 </table>
-<div th:if="${patients==null or patients.empty}">No patients found</div>
+<div style="margin-top: 8px;" th:if="${patients==null or patients.empty}">
+    No patients found
+    <hr />
+</div>
 
 <div class="button-container">
     <form action="/appointments/schedule" method="get">
@@ -80,6 +92,7 @@
             Schedule Appointments
         </button>
     </form>
+
 </div>
 </body>
 </html>

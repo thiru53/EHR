@@ -21,7 +21,7 @@
     <div>
         <label for="timeSlot">Time Slot:</label>
         <select id="timeSlot" name="timeSlot" required>
-            <option th:each="timeSlot : ${timeSlots}" th:value="${timeSlot}" th:text="${timeSlot}"></option>
+            <option th:each="timeSlot : ${timeSlots}" th:value="${timeSlot}" th:text="${timeSlot}" th:selected="${timeSlot == scheduledTimeSlot}"></option>
         </select>
     </div>
 

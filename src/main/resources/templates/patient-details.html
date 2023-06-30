@@ -50,8 +50,17 @@
             margin-right: 20px;
         }
     </style>
+    <script>
+        function loaded(){
+            debugger
+            var successMsg = "[[${successMsg}]]";
+            if(successMsg) {
+                alert(successMsg);
+            }
+        }
+    </script>
 </head>
-<body>
+<body onload="loaded()">
 <div class="heading">
     <h1>Patient Details</h1>
 </div>

@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
@@ -33,7 +30,7 @@ public class PatientController {
     private AppointmentService appointmentService;
 
     @GetMapping(value = {"", "/"})
-    public String searchPatients(Model model, String name) {
+    public String searchPatients(String name,@ModelAttribute("successMsg") String successMsg, Model model) {
         List<Patient> patients =  patientService.searchPatients(name);
         model.addAttribute("name", name);
         model.addAttribute("patients", patients);
@@ -41,7 +38,7 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public String getPatientDetails(Model model, @PathVariable("id") long patientId) {
+    public String getPatientDetails(@PathVariable("id") long patientId, @ModelAttribute("successMsg") String successMsg, Model model) {
         Patient patient = patientService.getPatientById(patientId);
         model.addAttribute("patient", patient);
         return "patient-details";
@@ -55,13 +52,19 @@ public class PatientController {
     }
 
     @PostMapping("/update/{id}")
-    public String updatePatient(@PathVariable("id") long patientId, Patient patient, BindingResult bindingResult) {
+    public String updatePatient(@PathVariable("id") long patientId, Patient patient, BindingResult bindingResult, RedirectAttributes redirAttrs, Model model) {
         if(bindingResult.hasErrors()){
             patient.setId(patientId);
             return "edit-patient";
         }
-        patientService.updatePatient(patient);
-        return "redirect:/patients/"+patient.getId();
+        try{
+            patientService.updatePatient(patient);
+        } catch(Exception ex){
+            model.addAttribute("error", ex.getMessage());
+            return "edit-patient";
+        }
+        redirAttrs.addFlashAttribute("successMsg", "Patient updated Successfully");
+        return "redirect:/patients/{id}";
     }
 
     @GetMapping("notes/view/{id}")
@@ -103,6 +106,7 @@ public class PatientController {
             model.addAttribute("error", "No appointments available");
         }
         model.addAttribute("appointmentDate", appointment.getAppointmentDate());
+        model.addAttribute("scheduledTimeSlot", appointment.getTimeSlot());
         model.addAttribute("timeSlots", appointmentService.getTotalTimeSlots());
         return "rescheduleForm";
     }

@@ -41,7 +41,7 @@ public class AppointmentService {
         calendar.set(Calendar.HOUR_OF_DAY, 9);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 24; i++) {
             String  day = sdf.format(calendar.getTime());
             timeSlots.add(i, day.toUpperCase());
             calendar.add(Calendar.MINUTE, 15);

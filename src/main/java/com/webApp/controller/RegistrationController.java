@@ -25,14 +25,17 @@ public class RegistrationController {
     }
 
     @PostMapping
-    public String registerPatient(Model model, RedirectAttributes redirAttrs, Patient patient, BindingResult bindingResult) {
+    public String registerPatient(Patient patient, BindingResult bindingResult, Model model, RedirectAttributes redirAttrs) {
 
         if(patientRepository.existsByContactDetails(patient.getContactDetails())) {
-            redirAttrs.addFlashAttribute("error", "Contact details already registered");
-            return "redirect:/registration";
+            //model.addAttribute("patient", patient);
+            model.addAttribute("error", "Contact details already registered");
+            return "registration-form";
         }
-        redirAttrs.addFlashAttribute("success", "Registered Successfully");
+        // Save patient
         patientRepository.save(patient);
+        redirAttrs.addAttribute("name", patient.getName());
+        redirAttrs.addFlashAttribute("successMsg", "Registered Successfully");
         return "redirect:/patients";
     }
 

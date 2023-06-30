@@ -28,7 +28,7 @@
 </head>
 <body>
 <h1>Appointment List</h1>
-<div>
+<div th:if="${appointments == null or appointments.empty}">
     <p>No appointments available for this patient ID.</p>
 </div>
 <div>
