@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Reschedule Appointment</title>
 
@@ -20,7 +20,7 @@
     <div>
         <label for="timeSlot">Time Slot:</label>
         <select id="timeSlot" name="timeSlot" required>
-            <option></option>
+            <option th:each="timeSlot : ${timeSlots}" th:value="${timeSlot}" th:text="${timeSlot}"></option>
         </select>
     </div>
 
