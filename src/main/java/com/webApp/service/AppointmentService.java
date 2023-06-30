@@ -5,9 +5,10 @@ import com.webApp.repo.AppointmentRepository;
 import com.webApp.repo.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class AppointmentService {
@@ -29,8 +30,19 @@ public class AppointmentService {
         appointmentRepository.save(appointmentDetails);
     }
 
-    private void getTotalTimeSlots() {
-
+    public List<String> getTotalTimeSlots() {
+        List<String> timeSlots = new ArrayList<String>();
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        for (int i = 0; i < 12; i++) {
+            String  day = sdf.format(calendar.getTime());
+            timeSlots.add(i, day.toUpperCase());
+            calendar.add(Calendar.MINUTE, 15);
+        }
+        return timeSlots;
     }
 
     public void generateAvailableTimeSlots() {
@@ -41,8 +53,8 @@ public class AppointmentService {
         return appointmentRepository.findByPatientId(patientId);
     }
 
-    public void getAppointmentById() {
-
+    public Appointment getAppointmentById(long appointmentId) {
+        return appointmentRepository.findById(appointmentId).orElse(null);
     }
 
     public void deleteAppointment() {
