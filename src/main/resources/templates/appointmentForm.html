@@ -13,7 +13,7 @@
     <div>
         <label for="timeSlot">Time Slot:</label>
         <select id="timeSlot" name="timeSlot" required>
-            <option th:each="i : ${#numbers.sequence(1, 24)}" th:value="${i}" th:text="${i}"></option>
+            <option th:each="timeSlot : ${timeSlots}" th:value="${timeSlot}" th:text="${timeSlot}"></option>
         </select>
     </div>
     <div>
@@ -43,6 +43,7 @@
             <button type="submit" >Schedule Appointment</button>
         </div>
     </div>
+    <div class="error-message" th:text="${error}" th:if="${error}"></div>
 </form>
 <script>
 </script>

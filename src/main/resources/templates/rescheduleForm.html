@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Reschedule Appointment</title>
 
@@ -14,19 +14,21 @@
                 type="date"
                 id="appointmentDate"
                 name="appointmentDate"
+                th:value="${appointmentDate}"
                 required
         />
     </div>
     <div>
         <label for="timeSlot">Time Slot:</label>
         <select id="timeSlot" name="timeSlot" required>
-            <option></option>
+            <option th:each="timeSlot : ${timeSlots}" th:value="${timeSlot}" th:text="${timeSlot}"></option>
         </select>
     </div>
 
     <div>
         <button type="submit">Reschedule Appointment</button>
     </div>
+    <div class="error-message" th:text="${error}" th:if="${error}"></div>
 </form>
 </body>
 </html>

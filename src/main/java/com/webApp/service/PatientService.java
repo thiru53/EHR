@@ -15,7 +15,7 @@ public class PatientService {
     private PatientRepository patientRepository;
 
     public List<Patient> searchPatients(String name) {
-        return (Objects.nonNull(name) && !name.isEmpty()) ? patientRepository.findByNameContainingIgnoreCase(name) : patientRepository.findAll();
+        return (Objects.nonNull(name) && !name.isEmpty()) ? patientRepository.findByNameContainingIgnoreCase(name) : List.of();
     }
 
     public Patient getPatientById(long patientId) {

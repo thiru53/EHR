@@ -72,6 +72,7 @@
         </tr>
     </tbody>
 </table>
+<div th:if="${patients==null or patients.empty}">No patients found</div>
 
 <div class="button-container">
     <form action="/appointments/schedule" method="get">

@@ -18,6 +18,10 @@ Task Specifications: Each task is accompanied by detailed information and exampl
 
 By following these rules and guidelines, you will demonstrate your ability to develop a functional Electronic Health Records (EHR) and Practice Management system, showcasing your programming and logical aptitude effectively.
 
+# DB details 
+check application.properties for username and password
+http://localhost:8080/h2-console
+
 # TASK-1 : New Patient Registration
 The objective of this task is to create an endpoint, '/registration', which displays a registration form for capturing patient information. The form may include fields such as name, contact details, demographic data, and medical history. The entered data should be validated for completeness and accuracy. Upon successful registration, the patient's information should be stored in the "patients" table. The endpoint should provide a response indicating the success or failure of the registration process.
 
