@@ -22,7 +22,7 @@ public class AppointmentService {
         this.patientRepository = patientRepository;
     }
 
-    public void scheduleAppointment(Appointment appointmentDetails) {
+    public Appointment scheduleAppointment(Appointment appointmentDetails) {
         Appointment appointment = appointmentRepository.findByAppointmentDateAndTimeSlot(appointmentDetails.getAppointmentDate(), appointmentDetails.getTimeSlot());
         if(Objects.nonNull(appointment)) {
             throw new RuntimeException("Please select a proper date and time");
@@ -30,7 +30,8 @@ public class AppointmentService {
         if(!patientRepository.existsById(appointmentDetails.getPatientId())) {
             throw new RuntimeException("Patient doesn't exists for provided id : "+ appointmentDetails.getPatientId());
         }
-        appointmentRepository.save(appointmentDetails);
+
+        return appointmentRepository.save(appointmentDetails);
     }
 
     public List<String> getTotalTimeSlots() {
@@ -48,8 +49,10 @@ public class AppointmentService {
         return timeSlots;
     }
 
-    public void generateAvailableTimeSlots() {
-
+    public List<String> generateAvailableTimeSlots(List<String> scheduledTimeSlots) {
+        List<String> timeSlots = getTotalTimeSlots();
+        timeSlots.removeAll(scheduledTimeSlots);
+        return timeSlots;
     }
 
     public List<Appointment> getAppointmentsByPatientId(long patientId) {
@@ -65,7 +68,7 @@ public class AppointmentService {
     }
 
     public Appointment rescheduleAppointment(Appointment appointment) {
-        return appointmentRepository.save(appointment);
+        return scheduleAppointment(appointment);
     }
 
     public long getPatientIdByAppointmentId(long appointmentId) {
