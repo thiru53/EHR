@@ -40,15 +40,23 @@
             <th>Appointment Time</th>
             <th>Purpose</th>
             <th>Doctor</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="appointment : ${appointments}">
-            <th th:text="${appointment.id}">Appointment ID</th>
-            <th th:text="${appointment.appointmentDate}">Appointment Date</th>
-            <th th:text="${appointment.timeSlot}">Appointment Time</th>
-            <th th:text="${appointment.purpose}">Purpose</th>
-            <th th:text="${appointment.doctorName}">Doctor</th>
+            <td th:text="${appointment.id}">Appointment ID</td>
+            <td th:text="${appointment.appointmentDate}">Appointment Date</td>
+            <td th:text="${appointment.timeSlot}">Appointment Time</td>
+            <td th:text="${appointment.purpose}">Purpose</td>
+            <td th:text="${appointment.doctorName}">Doctor</td>
+            <td >
+                <div >
+                    <button><a th:href="@{/patients/appointment/reschedule/{id}(id=${appointment.id})}">Reschedule</a></button>
+                    <button><a th:href="@{/patients/appointment/cancel/{id}(id=${appointment.id})}">Cancel</a></button>
+                    <button><a th:href="@{/patients/appointments/reminders/1}">Send Reminder</a></button>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
