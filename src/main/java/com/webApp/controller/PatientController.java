@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -99,7 +100,7 @@ public class PatientController {
     public String showRescheduleForm(@PathVariable("appointmentId") long appointmentId, Model model) {
         Appointment appointment = appointmentService.getAppointmentById(appointmentId);
         if(Objects.isNull(appointment)) {
-            model.addAttribute("error", "No appointment slots available");
+            model.addAttribute("error", "No appointments available");
         }
         model.addAttribute("appointmentDate", appointment.getAppointmentDate());
         model.addAttribute("timeSlots", appointmentService.getTotalTimeSlots());
@@ -107,14 +108,15 @@ public class PatientController {
     }
 
     @PostMapping("/appointment/reschedule/{appointmentId}")
-    public String rescheduleAppointment(@PathVariable("appointmentId") long appointmentId, LocalDate appointmentDate, String timeSlot) {
-
-        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
-        appointment.setAppointmentDate(appointmentDate);
-        appointment.setTimeSlot(timeSlot);
-
-        Appointment updateAppointment = appointmentService.rescheduleAppointment(appointment);
-
+    public String rescheduleAppointment(@PathVariable("appointmentId") long appointmentId, LocalDate appointmentDate, String timeSlot, RedirectAttributes redirAttrs) {
+        try {
+            Appointment appointment = appointmentService.getAppointmentById(appointmentId);
+            appointment.setAppointmentDate(appointmentDate);
+            appointment.setTimeSlot(timeSlot);
+            Appointment updateAppointment = appointmentService.rescheduleAppointment(appointment);
+        } catch (Exception ex){
+            redirAttrs.addFlashAttribute("error","Reschedule not done, please try again");
+        }
 
         return "redirect:/patients/appointment/reschedule/"+appointmentId;
     }
