@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/patients")
@@ -94,12 +95,18 @@ public class PatientController {
     }
 
     @GetMapping("/appointment/reschedule/{appointmentId}")
-    public String showRescheduleForm() {
+    public String showRescheduleForm(@PathVariable("appointmentId") long appointmentId, Model model) {
+        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
+        if(Objects.isNull(appointment)) {
+            model.addAttribute("error", "No appointment slots available");
+        }
+        //model.addAttribute("appointment", appointment);
+        model.addAttribute("timeSlots", appointmentService.getTotalTimeSlots());
         return "rescheduleForm";
     }
 
     @PostMapping("/appointment/reschedule/{appointmentId}")
-    public String rescheduleAppointment() {
+    public String rescheduleAppointment(@PathVariable("appointmentId") long appointmentId, Appointment appointment, BindingResult bindingResult) {
         return "redirect:/patients/appointment/reschedule/<appointmentId>";
     }
 
