@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -100,14 +101,22 @@ public class PatientController {
         if(Objects.isNull(appointment)) {
             model.addAttribute("error", "No appointment slots available");
         }
-        //model.addAttribute("appointment", appointment);
+        model.addAttribute("appointmentDate", appointment.getAppointmentDate());
         model.addAttribute("timeSlots", appointmentService.getTotalTimeSlots());
         return "rescheduleForm";
     }
 
     @PostMapping("/appointment/reschedule/{appointmentId}")
-    public String rescheduleAppointment(@PathVariable("appointmentId") long appointmentId, Appointment appointment, BindingResult bindingResult) {
-        return "redirect:/patients/appointment/reschedule/<appointmentId>";
+    public String rescheduleAppointment(@PathVariable("appointmentId") long appointmentId, LocalDate appointmentDate, String timeSlot) {
+
+        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
+        appointment.setAppointmentDate(appointmentDate);
+        appointment.setTimeSlot(timeSlot);
+
+        Appointment updateAppointment = appointmentService.rescheduleAppointment(appointment);
+
+
+        return "redirect:/patients/appointment/reschedule/"+appointmentId;
     }
 
     @PostMapping("/appointment/delete")

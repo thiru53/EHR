@@ -60,7 +60,8 @@ public class AppointmentService {
     public void deleteAppointment() {
     }
 
-    public void rescheduleAppointment() {
+    public Appointment rescheduleAppointment(Appointment appointment) {
+        return appointmentRepository.save(appointment);
     }
 
     public void getPatientIdByAppointmentId() {
