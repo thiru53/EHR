@@ -119,9 +119,11 @@ public class PatientController {
         return "redirect:/patients/appointment/reschedule/"+appointmentId;
     }
 
-    @PostMapping("/appointment/delete")
-    public String deleteAppointment() {
-        return "redirect:/patients/<patientId>";
+    @GetMapping("/appointment/delete/{appointmentId}")
+    public String deleteAppointment(@PathVariable("appointmentId") long appointmentId) {
+        long patientId = appointmentService.getPatientIdByAppointmentId(appointmentId);
+        appointmentService.deleteAppointment(appointmentId);
+        return "redirect:/patients/"+patientId;
     }
 
 }

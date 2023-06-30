@@ -27,6 +27,9 @@ public class AppointmentService {
         if(Objects.nonNull(appointment)) {
             throw new RuntimeException("Please select a proper date and time");
         }
+        if(!patientRepository.existsById(appointmentDetails.getPatientId())) {
+            throw new RuntimeException("Patient doesn't exists for provided id : "+ appointmentDetails.getPatientId());
+        }
         appointmentRepository.save(appointmentDetails);
     }
 
@@ -57,15 +60,17 @@ public class AppointmentService {
         return appointmentRepository.findById(appointmentId).orElse(null);
     }
 
-    public void deleteAppointment() {
+    public void deleteAppointment(long appointmentId) {
+        appointmentRepository.deleteById(appointmentId);
     }
 
     public Appointment rescheduleAppointment(Appointment appointment) {
         return appointmentRepository.save(appointment);
     }
 
-    public void getPatientIdByAppointmentId() {
-
+    public long getPatientIdByAppointmentId(long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow();
+        return appointment.getPatientId();
     }
 
     public void sendReminder() {
