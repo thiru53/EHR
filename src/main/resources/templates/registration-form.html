@@ -2,40 +2,41 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Patient Registration</title>
-    <script></script>
+    <script type="text/javascript" th:src="@{/js/registration.js}"></script>
+    <script type="text/javascript" th:src="@{/js/validation.js}"></script>
 </head>
 <body>
 <h1>Patient Registration</h1>
-<form method="post">
+<form method="post" th:object="${patient}">
     <div>
         <label for="name">Name:</label>
-        <input type="text" id="name" required />
+        <input type="text" id="name" th:field="*{name}" required />
         <span></span>
     </div>
     <div>
         <label for="contactDetails">Contact Details:</label>
-        <input type="text" id="contactDetails" required />
+        <input type="text" id="contactDetails" th:field="*{contactDetails}" required />
         <span></span>
     </div>
     <div>
         <label for="address">Address:</label>
-        <input type="text" id="address" required />
+        <input type="text" id="address" th:field="*{address}" required />
     </div>
     <div>
         <label for="email">Email:</label>
-        <input type="email" id="email" required />
+        <input type="email" id="email" th:field="*{email}" required />
     </div>
     <div>
         <label for="gender">Gender:</label>
-        <input type="text" id="gender" required />
+        <input type="text" id="gender" th:field="*{gender}" required />
     </div>
     <div>
         <label for="dob">Date of Birth:</label>
-        <input type="text" id="dob" required />
+        <input type="text" id="dob" th:field="*{dob}" required />
     </div>
     <div>
         <label for="medicalHistory">Medical History:</label>
-        <textarea id="medicalHistory" required></textarea>
+        <textarea id="medicalHistory" th:field="*{medicalHistory}" required></textarea>
         <span></span>
     </div>
     <div>
