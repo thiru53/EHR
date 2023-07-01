@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Patient Registration</title>
     <script></script>
@@ -41,7 +41,9 @@
     <div>
         <button type="submit">Register</button>
     </div>
-    <div class="error-message"></div>
+    <div class="error-message">
+        <p th:text="${error}" th:if="${error}"></p>
+    </div>
 </form>
 </body>
 </html>
