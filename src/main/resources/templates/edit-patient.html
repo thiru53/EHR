@@ -39,8 +39,17 @@
         background-color: #45a049;
       }
     </style>
+    <script type="text/javascript" th:src="@{/js/validation.js}"></script>
+    <script>
+        function loaded(){
+            var errMsg = "[[${error}]]";
+            if(errMsg) {
+                alert(errMsg);
+            }
+        }
+    </script>
 </head>
-<body>
+<body onload="loaded()">
 <div class="container">
     <h1>Edit Patient</h1>
     <form method="post" th:action="@{/patients/update/{id}(id=${patient.id})}" th:object="${patient}">
@@ -65,6 +74,7 @@
             <button type="submit">Update</button>
         </div>
     </form>
+
 </div>
 </body>
 </html>

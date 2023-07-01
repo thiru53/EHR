@@ -3,6 +3,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Appointment details</title></head>
+    <script>
+        function loaded(){
+            var errMsg = "[[${error}]]";
+            if(errMsg) {
+                alert(errMsg);
+            }
+        }
+    </script>
 <body>
 <h1>Appointment Form</h1>
 <form method="post" th:object="${appointmentForm}">
