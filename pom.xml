@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
     <groupId>com.Electronic.Health.Records.EHR.and.Practice.Management.system</groupId>
-    <artifactId>webAp</artifactId>
+    <artifactId>webApp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>webAp</name>
     <description>Demo project for Spring Boot</description>
